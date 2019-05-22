@@ -1,0 +1,38 @@
+swagger: "2.0"
+info:
+  title: "nicodive-api"
+  version: "0.0.1"
+paths:
+  /api/video/{id}:
+    get:
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Successful response"
+          schema:
+            type: "object"
+            properties:
+              title:
+                type: "string"
+              embedurl:
+                type: "string"
+              description:
+                type: "string"
+              firstRetrive:
+                type: "string"
+              length:
+                type: "string"
+              viwCount:
+                type: "integer"
+              commentCount:
+                type: "integer"
+              mylistCount:
+                type: "integer"
+              tags:
+                type: array
+                items:
+                  type: "string"
