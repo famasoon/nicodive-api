@@ -26,7 +26,7 @@ paths:
                 type: "string"
               length:
                 type: "string"
-              viwCount:
+              viewCount:
                 type: "integer"
               commentCount:
                 type: "integer"

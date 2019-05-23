@@ -67,7 +67,7 @@ func init() {
                 "title": {
                   "type": "string"
                 },
-                "viwCount": {
+                "viewCount": {
                   "type": "integer"
                 }
               }
@@ -128,7 +128,7 @@ func init() {
                 "title": {
                   "type": "string"
                 },
-                "viwCount": {
+                "viewCount": {
                   "type": "integer"
                 }
               }

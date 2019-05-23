@@ -87,8 +87,8 @@ type GetAPIVideoIDOKBody struct {
 	// title
 	Title string `json:"title,omitempty"`
 
-	// viw count
-	ViwCount int64 `json:"viwCount,omitempty"`
+	// view count
+	ViewCount int64 `json:"viewCount,omitempty"`
 }
 
 // Validate validates this get API video ID o k body
