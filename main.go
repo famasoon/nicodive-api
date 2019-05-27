@@ -28,5 +28,16 @@ func main() {
 		return c.JSON(http.StatusOK, videoInfo)
 	})
 
+	e.GET("/v1/ranking/:category/:period", func(c echo.Context) error {
+		category := c.Param("category")
+		period := c.Param("period")
+		ranking, err := nico.GetRanking(category, period)
+		if err != nil {
+			log.Printf("[ERROR] failed to call GetRanking")
+			return c.JSON(http.StatusNotFound, fmt.Sprintf("%s", err))
+		}
+		return c.JSON(http.StatusOK, ranking)
+	})
+
 	e.Logger.Fatal(e.Start(":8080"))
 }
