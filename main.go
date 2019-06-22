@@ -17,6 +17,10 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
+	e.GET("/", func(c echo.Context) error {
+		return c.String(http.StatusOK, "OK")
+	})
+
 	e.GET("/v1/video/:videoid", func(c echo.Context) error {
 		videoID := c.Param("videoid")
 		videoInfo, err := nico.GetVideoInfo(videoID)
