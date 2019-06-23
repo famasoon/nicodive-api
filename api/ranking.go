@@ -28,39 +28,22 @@ func GetRanking(category, period string) ([]RankingItem, error) {
 		return nil, err
 	}
 
-	itemChan := make(chan RankingItem)
-	defer close(itemChan)
-
-	errChan := make(chan error, 1)
-	defer close(errChan)
-
 	items := make([]RankingItem, len(feed.Items))
 
 	for i := range feed.Items {
-		go func(link string, rank int) {
-			videoID := GetVideoID(link)
-			videoInfo, err := GetVideoInfo(videoID)
-			if err != nil {
-				errChan <- err
-			}
-
-			itemChan <- RankingItem{
-				Title:       videoInfo.Video.Title,
-				Rank:        rank + 1,
-				Thumbnail:   videoInfo.Video.ThumbnailURL,
-				Description: videoInfo.Video.Description,
-				Link:        videoID,
-			}
-		}(feed.Items[i].Link, i)
-	}
-
-	for range feed.Items {
-		select {
-		case item := <-itemChan:
-			items[item.Rank-1] = item
-		case err := <-errChan:
+		videoID := GetVideoID(feed.Items[i].Link)
+		videoInfo, err := GetVideoInfo(videoID)
+		if err != nil {
 			log.Printf("[ERROR] failed to get ranking items, rankingURL: %s\n", rankingURL)
 			return nil, err
+		}
+
+		items[i] = RankingItem{
+			Title:       videoInfo.Video.Title,
+			Rank:        i + 1,
+			Thumbnail:   videoInfo.Video.ThumbnailURL,
+			Description: videoInfo.Video.Description,
+			Link:        videoID,
 		}
 	}
 	return items, nil
